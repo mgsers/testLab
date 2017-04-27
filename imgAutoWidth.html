@@ -1,0 +1,97 @@
+<html> 
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="applicable-device" content="mobile">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="email=no">
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            img{
+                position: absolute;
+            }
+
+            body {
+                width: 6.4rem;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: #f8f9fa;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <img src="http://xz.duoyi.com/static/wechat/build/bg.jpg?d602feee0d393bbfc9493bf6f536d05e" alt="" style="left:0;top:0;">
+        </div>
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.core.min.js"></script>
+    <script>
+        var auto = {
+            init: function() {
+                var $img = $('img'),
+                    picW = $img.width() || 640;
+                    picH = $img.height() || 1031;
+                    picS = picW / picH;
+
+                function bgAdaptation() {
+                    var mobileW = document.documentElement.clientWidth,
+                        mobileH = document.documentElement.clientHeight,
+                        mobileS = mobileW / mobileH,
+                        scale,imgW,imgH;
+
+                    if(mobileS >= picS) {
+                        scale = mobileW / picW
+                        imgW = mobileW
+                        imgH = picH * scale
+                        $img.css({
+                            'width': imgW,
+                            'height': imgH,
+                            'left': 0,
+                            'top': (mobileH - imgH) / 2
+                        })
+                    }else {
+                        scale = mobileH / picH
+                        imgW = picW * scale
+                        imgH = mobileH
+                        $img.css({
+                            'width': imgW,
+                            'height': imgH,
+                            'left': (mobileW - imgW) / 2,
+                            'top': 0
+                        })
+                    }
+                }
+
+                bgAdaptation()
+
+                $(window).resize(function(){
+                    bgAdaptation()
+                })
+            }
+        }
+
+        auto.init();
+
+        (function (win, nav, doc){
+            var autoFontSize = function() {
+                if(nav.userAgent.indexOf('Windows') > -1) return;
+
+                var fontSize = (doc.documentElement.clientWidth) / 6.4
+
+                doc.querySelector('html').style.fontSize = fontSize + 'px'
+            }
+            autoFontSize()
+
+            $(window).resize(function(){
+                    autoFontSize()
+                })
+        })(window, navigator, document)
+
+        // auto.init()
+    </script>
+</html>
