@@ -1,2 +1,4 @@
 # theme: jekyll-theme-merlot
 baseurl: /
+
+theme: jekyll-theme-cayman
